@@ -4,7 +4,7 @@
 #include <QQuickStyle>
 auto main(int argc, char* argv[]) -> int {
   QGuiApplication app(argc, argv);
-  // QQuickStyle::setStyle("Basic");
+  QQuickStyle::setStyle("Basic");
   QQmlDebuggingEnabler::enableDebugging(true);
   QQmlApplicationEngine engine;
   engine.loadFromModule("EGP", "Main");

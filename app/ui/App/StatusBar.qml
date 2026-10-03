@@ -1,20 +1,21 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "../Components"
 
 Rectangle {
     id: statusBar
-    height: 30
-    color: "lightgray"
+    Layout.preferredHeight: 30
     Layout.fillWidth: true
+    default property alias content: contentLayout.data
+    color: "lightgray"
     RowLayout {
+
         anchors.fill: parent
         spacing: 1
 
-        IconButton {
+        RowLayout {
+            id: contentLayout
             Layout.fillHeight: true
-            text: "\uf115"
         }
         Item {
             Layout.fillWidth: true

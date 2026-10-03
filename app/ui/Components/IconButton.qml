@@ -19,12 +19,7 @@ Button {
         text: control.text
         color: "black"
 
-        // 关键：让 Text 填满整个按钮
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        
-        // 如果只写 alignment 还不够，显式 anchor 填满
-        anchors.fill: parent
-        
     }
 }

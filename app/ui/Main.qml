@@ -12,18 +12,12 @@ Window {
     width: 800
     height: 600
     visible: true
-    System {
-        id: sys
-    }
-    property SystemPalette systemPalette: SystemPalette {
-        id: sysPalette
-        colorGroup: SystemPalette.Active
-    }
+
     Connections {}
     Fonts {
         id: fonts
     }
     AppFramework {
-        systemPalette: root.systemPalette
+        id: appFramework
     }
 }
