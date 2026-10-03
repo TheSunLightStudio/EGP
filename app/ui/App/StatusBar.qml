@@ -11,10 +11,11 @@ Rectangle {
     RowLayout {
 
         anchors.fill: parent
-        spacing: 1
+        spacing: 0
 
         RowLayout {
             id: contentLayout
+            spacing: 1
             Layout.fillHeight: true
         }
         Item {

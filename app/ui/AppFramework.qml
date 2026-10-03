@@ -18,6 +18,7 @@ ColumnLayout {
         Layout.fillHeight: true
         orientation: Qt.Horizontal
         SideBar {
+            id: sideBar
             SplitView.fillHeight: true
             SplitView.preferredWidth: 170
             SplitView.maximumWidth: 300
@@ -42,23 +43,11 @@ ColumnLayout {
         Layout.fillWidth: true
         IconButton {
             text: "\uf0c9"
-            onClicked: console.log("Menu button clicked")
-        }
-        IconButton {
-            text: "\uf0c9"
-            onClicked: console.log("Menu button clicked")
-        }
-        IconButton {
-            text: "\uf0c9"
-            onClicked: console.log("Menu button clicked")
-        }
-        IconButton {
-            text: "\uf0c9"
-            onClicked: console.log("Menu button clicked")
-        }
-        IconButton {
-            text: "\uf0c9"
-            onClicked: console.log("Menu button clicked")
+            // 字号在这里按需覆盖（不设则用 IconButton 的默认值 14）
+            iconSize: 16
+
+            onClicked: sideBar.visible = !sideBar.visible
+            rightPadding: 5
         }
     }
 }

@@ -4,6 +4,8 @@ import QtQuick.Controls.Basic
 
 Button {
     id: control
+    // 图标字号，使用方可按需覆盖
+    property int iconSize: 14
     padding: 0
     Layout.preferredWidth: 30
     Layout.fillHeight: true
@@ -18,6 +20,7 @@ Button {
     contentItem: Text {
         text: control.text
         color: "black"
+        font.pixelSize: control.iconSize
 
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
