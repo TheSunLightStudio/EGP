@@ -4,5 +4,5 @@ import QtQuick.Controls
 
 Rectangle {
 
-    color: "red"
+    color: "lightgray"
 }
