@@ -7,7 +7,7 @@ auto main(int argc, char* argv[]) -> int {
   QQuickStyle::setStyle("Basic");
   QQmlDebuggingEnabler::enableDebugging(true);
   QQmlApplicationEngine engine;
-  engine.loadFromModule("EGP", "Main");
+  engine.loadFromModule("EGP.ui", "Main");
 
   return app.exec();
 }

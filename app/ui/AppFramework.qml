@@ -1,6 +1,9 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Timeline
 import "./App"
 import "./Components"
 
@@ -17,24 +20,30 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
         orientation: Qt.Horizontal
+        handle: HorizontalSplitHandle {}
         SideBar {
             id: sideBar
             SplitView.fillHeight: true
             SplitView.preferredWidth: 170
             SplitView.maximumWidth: 300
+            SplitView.minimumWidth: 130
         }
         SplitView {
             Layout.fillWidth: true
             Layout.fillHeight: true
             orientation: Qt.Vertical
+            handle: VerticalSplitHandle {}
             Scene {
+                id: scene
                 SplitView.fillWidth: true
                 SplitView.fillHeight: true
-                color: "cyan"
+                SplitView.minimumHeight: 170
             }
-            Scene {
-                implicitHeight: 160
-                color: "lightblue"
+            BottomBar {
+                id: bottomBar
+                SplitView.fillWidth: true
+                SplitView.preferredHeight: 60
+                SplitView.minimumHeight: 50
             }
         }
     }
@@ -43,11 +52,13 @@ ColumnLayout {
         Layout.fillWidth: true
         IconButton {
             text: "\uf0c9"
-            // 字号在这里按需覆盖（不设则用 IconButton 的默认值 14）
-            iconSize: 16
 
             onClicked: sideBar.visible = !sideBar.visible
             rightPadding: 5
+        }
+        IconButton {
+            text: "\uf15b"
+            onClicked: {}
         }
     }
 }

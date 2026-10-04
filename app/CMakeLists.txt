@@ -1,19 +1,31 @@
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Quick Qml QuickControls2 QuickLayouts Quick3D)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Quick Qml QuickControls2
+             QuickLayouts Quick3D)
 qt_standard_project_setup(REQUIRES 6.12)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-file(GLOB_RECURSE EGP_APP_UI_QML_FILES CONFIGURE_DEPENDS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/*.qml)
-file(GLOB EGP_APP_UI_JAVASCRIPT_FILES CONFIGURE_DEPENDS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ui/javascript/*.js)
-file(GLOB_RECURSE EGP_APP_UI_RESOURCE_FILES CONFIGURE_DEPENDS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} resources/*)
+file(GLOB_RECURSE EGP_APP_UI_QML_FILES CONFIGURE_DEPENDS RELATIVE
+     ${CMAKE_CURRENT_SOURCE_DIR} ui/*.qml)
+list(FILTER EGP_APP_UI_QML_FILES EXCLUDE REGEX "^ui/Singletons/")
+file(GLOB EGP_APP_UI_JAVASCRIPT_FILES CONFIGURE_DEPENDS RELATIVE
+     ${CMAKE_CURRENT_SOURCE_DIR} ui/javascript/*.js)
+file(GLOB_RECURSE EGP_APP_UI_RESOURCE_FILES CONFIGURE_DEPENDS RELATIVE
+     ${CMAKE_CURRENT_SOURCE_DIR} resources/*)
+file(GLOB_RECURSE EGP_APP_UI_SINGLETON_FILES CONFIGURE_DEPENDS RELATIVE
+     ${CMAKE_CURRENT_SOURCE_DIR} ui/Singletons/*.qml)
+
+set_source_files_properties(${EGP_APP_UI_SINGLETON_FILES} PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+)
 
 add_executable(app src/main.cpp)
 qt_add_qml_module(app
-  URI EGP
+  URI EGP.ui
   VERSION 1.0
   QML_FILES
   ${EGP_APP_UI_QML_FILES}
+  ${EGP_APP_UI_SINGLETON_FILES}
   RESOURCES
   ${EGP_APP_UI_JAVASCRIPT_FILES}
 )
@@ -22,7 +34,8 @@ qt_add_resources(app "resources"
   FILES
   ${EGP_APP_UI_RESOURCE_FILES}
 )
-target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/include)
+target_include_directories(app PRIVATE
+                           ${CMAKE_CURRENT_SOURCE_DIR}/src/ui/include)
 target_link_libraries(app
   PRIVATE
   Qt6::Core
