@@ -61,7 +61,7 @@ if(WIN32)
     COMMAND "${qt_bin_dir}/windeployqt.exe"
     --qtpaths "${qt_bin_dir}/qtpaths.exe"
     --no-translations
-    --no-compiler-runtime
+    #--no-compiler-runtime
     --qmldir "${CMAKE_CURRENT_SOURCE_DIR}/ui"
     "$<TARGET_FILE_DIR:app>"
     COMMENT "Deploying Qt DLLs for app"
