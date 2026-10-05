@@ -3,6 +3,9 @@
 #include <QQmlDebuggingEnabler>
 #include <QQuickStyle>
 
+#include "glaze/glaze.hpp"
+
+
 auto main(int argc, char* argv[]) -> int {
   QGuiApplication app(argc, argv);
   QQuickStyle::setStyle("Basic");
