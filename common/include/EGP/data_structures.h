@@ -6,7 +6,8 @@
 #include <variant>
 #include <vector>
 
-enum class EndingMethod { END_WITH_TIME = 0, END_WITH_EVENT = 1 };
+namespace egp::event {
+
 struct MoveEvent {
   std::optional<uint64_t> character_index = std::nullopt;
   float x = 0.0f;
@@ -38,20 +39,26 @@ struct SetCharacterEvent {
 
 using Event = std::variant<MoveEvent, SpeakEvent, ImageChangeEvent,
                            SetCharacterHoleEvent, SetCharacterEvent>;
+}  // namespace egp::event
+
+namespace egp {
+
+enum class EndingMethod { END_WITH_TIME = 0, END_WITH_EVENT = 1 };
 
 struct Character {
-  std::optional<std::string> name;
-  float character_size = 1.0f;
-  float character_transparency = 1.0f;
   struct Halo {
     float halo_size = 1.0f;
     float halo_transparency = 1.0f;
     std::optional<uint64_t> halo_flicker_frequency = 0;
-  } halo;
+  };
+  std::optional<std::string> name;
+  float character_size = 1.0f;
+  float character_transparency = 1.0f;
+  Halo halo;
 };
 
 struct Round {
-  std::vector<Event> event_log;
+  std::vector<event::Event> event_log;
   int ending_method = static_cast<int>(EndingMethod::END_WITH_EVENT);
 };
 
@@ -69,9 +76,10 @@ enum class RequestType : std::int8_t {
 
 using CharacterProperty = std::variant<std::string, float, int>;
 
-void AddCharacter(const std::string& name, float character_size,
-                  float character_transparency, float halo_size,
-                  float halo_transparency, std::int8_t halo_flicker_frequency) {
+inline void AddCharacter(const std::string& name, float character_size,
+                         float character_transparency, float halo_size,
+                         float halo_transparency,
+                         std::int8_t halo_flicker_frequency) {
   characters.push_back(Character{
       .name = name,
       .character_size = character_size,
@@ -81,8 +89,8 @@ void AddCharacter(const std::string& name, float character_size,
                .halo_flicker_frequency = halo_flicker_frequency},
   });
 }
-void EditCharacter(std::int8_t character_index, std::int8_t witch,
-                   CharacterProperty a) {
+inline void EditCharacter(std::int8_t character_index, std::int8_t witch,
+                          CharacterProperty a) {
   if (character_index >= 0 &&
       character_index < static_cast<std::int8_t>(characters.size())) {
     Character& character = characters[character_index];
@@ -112,10 +120,12 @@ void EditCharacter(std::int8_t character_index, std::int8_t witch,
     }
   }
 }
-void AddRound(const std::vector<Event>& event_log, EndingMethod ending_method) {
+inline void AddRound(const std::vector<event::Event>& event_log,
+                     EndingMethod ending_method) {
   Round new_round;
   new_round.event_log = event_log;
   new_round.ending_method = static_cast<int>(ending_method);
 
   round_pool.push_back(new_round);
 }
+}  // namespace egp

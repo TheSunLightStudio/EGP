@@ -4,7 +4,9 @@
 - 代码、命令、文件路径、标识符保持英文原文，不翻译。
 
 # 编码规范
-- 代码风格遵循 C++ Core Guidelines
+- 代码风格遵循 C++ Core Guidelines，在没有明确规定的情况下，遵循 Google C++ Style Guide。
 - 缩进使用 2 个空格
 - 所有源文件使用 UTF-8 编码。
--
+
+# QML
+- 请不要使用单例。

@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include(cmake/packages.cmake)
 
+add_subdirectory(common)
 add_subdirectory(backend)
 add_subdirectory(app)
 

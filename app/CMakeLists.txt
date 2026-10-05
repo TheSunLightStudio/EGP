@@ -28,16 +28,6 @@ file(GLOB_RECURSE EGP_APP_UI_RESOURCE_FILES
 	RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 	resources/*
 )
-file(GLOB_RECURSE EGP_APP_UI_SINGLETON_FILES
-	CONFIGURE_DEPENDS
-	RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-	QMLSingletons/*.qml
-)
-
-set_source_files_properties(${EGP_APP_UI_SINGLETON_FILES}
-	PROPERTIES QT_QML_SINGLETON_TYPE TRUE
-)
-
 add_executable(EGP_app src/main.cpp)
 qt_add_qml_module(
 	EGP_app
@@ -47,7 +37,6 @@ qt_add_qml_module(
 	1.0
 	QML_FILES
 	${EGP_APP_UI_QML_FILES}
-	${EGP_APP_UI_SINGLETON_FILES}
 	RESOURCES
 	${EGP_APP_UI_JAVASCRIPT_FILES}
 )
@@ -70,6 +59,10 @@ target_link_libraries(EGP_app
 		Qt6::QuickControls2
 		Qt6::QuickLayouts
 		Qt6::Quick3D
+)
+target_link_libraries(EGP_app
+	PRIVATE
+		EGP_common
 		glaze::glaze
 )
 target_compile_definitions(EGP_app PRIVATE QT_NO_EMIT)
