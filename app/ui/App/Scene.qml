@@ -1,9 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick3D
 
 Rectangle {
     id: root
-    color: "red"
+    color: '#a1a1a1'
 }

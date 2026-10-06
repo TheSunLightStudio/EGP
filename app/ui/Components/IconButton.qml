@@ -1,14 +1,17 @@
 import QtQuick
-import QtQuick.Layouts
 import QtQuick.Controls.Basic
 
+// 图标按钮：字体的 family/styleName 由 FaIcon 统一处理，调用方无需再手动传递。
 Button {
     id: control
-    // 图标字号，使用方可按需覆盖
-    property int iconSize: 14
+
+    property int iconSize: 16
+    property string iconColor: "black"
+    property bool solid: true
+
+    implicitWidth: 30
+    implicitHeight: 30
     padding: 0
-    Layout.preferredWidth: 30
-    Layout.fillHeight: true
 
     background: Rectangle {
         anchors.fill: parent
@@ -17,9 +20,10 @@ Button {
         radius: 4
     }
 
-    contentItem: Text {
+    contentItem: FaIcon {
         text: control.text
-        color: "black"
+        solid: control.solid
+        color: control.iconColor
         font.pixelSize: control.iconSize
 
         horizontalAlignment: Text.AlignHCenter
